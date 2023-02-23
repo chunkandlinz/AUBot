@@ -1,0 +1,1 @@
+Learning Javascript and how to use APIs. This Discord Bot uses the PF2e API from https://api.pathfinder2.fr/ to pull rules and information for Discord users.
