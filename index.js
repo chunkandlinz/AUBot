@@ -1,30 +1,34 @@
-const { token } = require("./config.json");
-const fs = require("node:fs");
-const path = require("node:path");
-const { Client, Collection, GatewayIntentBits } = require("discord.js");
+// Grabs bot token from config.json file
+const { token } = require("./config.json")
+//Client and GatewayIntentBits used for establishing connection
+//with Discord and reading and replying to messages
+const { Client, GatewayIntentBits } = require("discord.js")
+//For cleaner code, established getMessage fuction in separate file
+const { getMessage } = require("./getMessage.js")
 
+//establish the client to grab intents
 const client = new Client({
   intents: [
     GatewayIntentBits.Guilds,
     GatewayIntentBits.GuildMessages,
     GatewayIntentBits.MessageContent,
-  ],
-});
-client.commands = new Collection();
+	  GatewayIntentBits.GuildMembers,
+  ]
+})
 
-const eventsPath = path.join(__dirname, "events");
-const eventFiles = fs
-  .readdirSync(eventsPath)
-  .filter((file) => file.endsWith(".js"));
+//used to determine that bot is logged on to server
+client.once(`ready`, c =>{
+  console.log(`Ready! Logged in as ${c.user.tag}`)
+})
 
-for (const file of eventFiles) {
-  const filePath = path.join(eventsPath, file);
-  const event = require(filePath);
-  if (event.once) {
-    client.once(event.name, (...args) => event.execute(...args));
-  } else {
-    client.on(event.name, (...args) => event.execute(...args));
-  }
-}
+//on messageCreate event, grabs message for use
+client.on('messageCreate', (message) => {
+  //ignores messages from self
+  if(message.author.tag == client.user.tag) return
 
-client.login(token);
+  //passes message to getMessage function
+  getMessage(message)
+})
+
+//logs in to server.
+client.login(token)
