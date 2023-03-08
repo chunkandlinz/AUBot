@@ -2,7 +2,7 @@
 const { pathfinderId } = require("./config.json")
 const url = `https://api.pathfinder2.fr/v1/pf2`;
 const maxLength = 2000
-const { Action, Ancestry, AncestryFeature, Archetype, Background, Class, ClassFeature, Deity } = require("./getRequest.js")
+const { Action, Ancestry, AncestryFeature, Archetype, Background, Class, ClassFeature, Deity, Equipment, Feat } = require("./getRequest.js")
 //const { breakObject } = require("./breakObject.js")
 
 //pass message to function to determine if established API command
@@ -106,7 +106,6 @@ const getMessage = (message) => {
                   apiRule[0].system.featType.value,
                   apiRule[0].system.level.value,
                   apiRule[0].system.prerequisites.value,
-                  apiRule[0].system.rules,
                   apiRule[0].system.source.value,
                   apiRule[0].system.traits.custom,
                   apiRule[0].system.traits.rarity,
@@ -144,7 +143,6 @@ const getMessage = (message) => {
                   apiRule[0].system.featType.value,
                   apiRule[0].system.level.value,
                   apiRule[0].system.prerequisites.value,
-                  apiRule[0].system.rules,
                   apiRule[0].system.source.value,
                   apiRule[0].system.traits.custom,
                   apiRule[0].system.traits.rarity,
@@ -164,6 +162,37 @@ const getMessage = (message) => {
 
                     messageReply = deity.toString()
                 }
+                else if (content.slice(0, content.indexOf(".")).toLowerCase() == "!!equipment" && apiRule.length == 1){
+                  let equipment = new Equipment(apiRule[0].name,
+                    apiRule[0].system.description.value,
+                    apiRule[0].system.equippedBulk.value,
+                    apiRule[0].system.level.value,
+                    apiRule[0].system.price.value,
+                    apiRule[0].system.quantity,
+                    apiRule[0].system.source.value,
+                    apiRule[0].system.traits.custom,
+                    apiRule[0].system.traits.rarity,
+                    apiRule[0].system.traits.value,
+                    apiRule[0].system.usage.value,
+                    apiRule[0].system.weight.value)
+  
+                    messageReply = equipment.toString()
+                  }
+                  else if (content.slice(0, content.indexOf(".")).toLowerCase() == "!!feat" && apiRule.length == 1){
+                    let feat = new Feat(apiRule[0].name,
+                      apiRule[0].system.actionType.value,
+                      apiRule[0].system.actions.value,
+                      apiRule[0].system.description.value,
+                      apiRule[0].system.featType.value,
+                      apiRule[0].system.level.value,
+                      apiRule[0].system.prerequisites.value,
+                      apiRule[0].system.source.value,
+                      apiRule[0].system.traits.custom,
+                      apiRule[0].system.traits.rarity,
+                      apiRule[0].system.traits.value)
+    
+                      messageReply = feat.toString()
+                    }
               else {
                 console.log(apiRule[0])
                 //apiRule.flat()
@@ -244,9 +273,17 @@ const getMessage = (message) => {
                   }
                   else if (messageReply.length - n > maxLength){
                     chop = messageReply.slice(n, n + maxLength)
+                    if (chop.endsWith(" ") == false || chop.endsWith("\n") == false){
+                      m = chop.lastIndexOf("\n")
+                      chop = messageReply.slice(n, n + m)
+                      n += m
+                      i -= m
+                    }else {
+                      n += maxLength
+                      i -= maxLength
+                    }
                     message.reply(chop)
-                    n += maxLength
-                    i -= maxLength
+                    
                   }else {
                     chop = messageReply.slice(n, messageReply.length)
                     message.reply(chop)

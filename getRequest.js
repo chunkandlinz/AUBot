@@ -1,4 +1,9 @@
 //Objects collect and hold meaningful information to be used for replying to request.
+
+/*Notes for later: Prequisites and Rules in ClassFeature, AncestryFeature, Feat, and others
+ return arrays of objects, like Prices in Equipment.
+Access those in a similar fashion in order to post them to the message. */
+
 class Action{
     constructor(name = "" /*.name, string */, 
     actionCategory = "" /*.system.actionCategory.value, string */, 
@@ -63,37 +68,52 @@ class Action{
         .replaceAll("<em>", "")
         .replaceAll("</em>", "")
         .replaceAll("<hr />", "")
-        .replaceAll("</table>", "")
-        .replaceAll("<thread>", "")
-        .replaceAll("</thread>", "")
-        .replaceAll("<tr>", "")
-        .replaceAll("</tr>", "")
-        .replaceAll("<td>", "")
-        .replaceAll("</td>", "")
-        .replaceAll("<th>", "")
-        .replaceAll("</th>", "")
-        .replaceAll("<thead>", "***")
-        .replaceAll("</thead>", "***")
-        .replaceAll("<tbody>", "")
-        .replaceAll("</tbody>", "")
+        .replaceAll("</table>", " ")
+        .replaceAll("<thread>", " ")
+        .replaceAll("</thread>", " ")
+        .replaceAll("<tr>\n", " ")
+        .replaceAll("</tr>", " ")
+        .replaceAll("<td>", " ")
+        .replaceAll("</td>\n", " ")
+        .replaceAll("<th>", " ")
+        .replaceAll("</th>\n", " ")
+        .replaceAll("<thead>\n", "***")
+        .replaceAll("</thead>\n", "***")
+        .replaceAll("<tbody>\n", " ")
+        .replaceAll("</tbody>\n", " ")
         .replaceAll("<h1>", "***")
         .replaceAll("</h1>", "***")
         .replaceAll("<strong>", "***")
         .replaceAll("</strong>", "***")
         .replaceAll("<h2>", "***")
         .replaceAll("</h2>", "***")
-        .replaceAll("<h3>", "***")
-        .replaceAll("</h3>", "***")
+        .replaceAll("<h3>", "")
+        .replaceAll("</h3>", "")
         .replaceAll("</span>", "")
         
-        if (this.description.indexOf("<h2") != -1){
-            this.description = this.description.replaceAll(this.description.slice(this.description.indexOf("<h2"),this.description.indexOf(">", this.description.indexOf("<h2"))+1), "***")
+        while (this.description.indexOf("<h2") != -1){
+            let n = this.description.indexOf("<h2")
+            this.description = this.description.replaceAll(this.description.slice(n,this.description.indexOf(">", n)+1), "***")
         }
-        if (this.description.indexOf("<span") != -1){
-            this.description = this.description.replaceAll(this.description.slice(this.description.indexOf("<span"),this.description.indexOf(">", this.description.indexOf("<span"))+1), "")
+        while (this.description.indexOf("<span") != -1){
+            let n = this.description.indexOf("<span")
+            this.description = this.description.replaceAll(this.description.slice(n,this.description.indexOf(">", n)+1), "")
         }
-        if (this.description.indexOf("<table") != -1){
-            this.description = this.description.replaceAll(this.description.slice(this.description.indexOf("<table"),this.description.indexOf(">", this.description.indexOf("<table"))+1), "")
+        while (this.description.indexOf("<table") != -1){
+            let n = this.description.indexOf("<table")
+            this.description = this.description.replaceAll(this.description.slice(n,this.description.indexOf(">\n", n)+1), "")
+        }
+        while (this.description.indexOf("<td") != -1){
+            let n = this.description.indexOf("<td")
+            this.description = this.description.replaceAll(this.description.slice(n,this.description.indexOf(">", n)+1), " ")
+        }
+        while (this.description.indexOf("<h1") != -1){
+            let n = this.description.indexOf("<h1")
+            this.description = this.description.replaceAll(this.description.slice(n,this.description.indexOf(">", n)+1), "***")
+        }
+        while (this.description.indexOf("<h3") != -1){
+            let n = this.description.indexOf("<h3")
+            this.description = this.description.replaceAll(this.description.slice(n,this.description.indexOf(">", n)+1), " ")
         }
         return this.description
     }
@@ -186,37 +206,52 @@ class Ancestry{
         .replaceAll("<em>", "")
         .replaceAll("</em>", "")
         .replaceAll("<hr />", "")
-        .replaceAll("</table>", "")
-        .replaceAll("<thread>", "")
-        .replaceAll("</thread>", "")
-        .replaceAll("<tr>", "")
-        .replaceAll("</tr>", "")
-        .replaceAll("<td>", "")
-        .replaceAll("</td>", "")
-        .replaceAll("<th>", "")
-        .replaceAll("</th>", "")
-        .replaceAll("<thead>", "***")
-        .replaceAll("</thead>", "***")
-        .replaceAll("<tbody>", "")
-        .replaceAll("</tbody>", "")
+        .replaceAll("</table>", " ")
+        .replaceAll("<thread>", " ")
+        .replaceAll("</thread>", " ")
+        .replaceAll("<tr>\n", " ")
+        .replaceAll("</tr>", " ")
+        .replaceAll("<td>", " ")
+        .replaceAll("</td>\n", " ")
+        .replaceAll("<th>", " ")
+        .replaceAll("</th>\n", " ")
+        .replaceAll("<thead>\n", "***")
+        .replaceAll("</thead>\n", "***")
+        .replaceAll("<tbody>\n", " ")
+        .replaceAll("</tbody>\n", " ")
         .replaceAll("<h1>", "***")
         .replaceAll("</h1>", "***")
         .replaceAll("<strong>", "***")
         .replaceAll("</strong>", "***")
         .replaceAll("<h2>", "***")
         .replaceAll("</h2>", "***")
-        .replaceAll("<h3>", "***")
-        .replaceAll("</h3>", "***")
+        .replaceAll("<h3>", "")
+        .replaceAll("</h3>", "")
         .replaceAll("</span>", "")
         
-        if (this.description.indexOf("<h2") != -1){
-            this.description = this.description.replaceAll(this.description.slice(this.description.indexOf("<h2"),this.description.indexOf(">", this.description.indexOf("<h2"))+1), "***")
+        while (this.description.indexOf("<h2") != -1){
+            let n = this.description.indexOf("<h2")
+            this.description = this.description.replaceAll(this.description.slice(n,this.description.indexOf(">", n)+1), "***")
         }
-        if (this.description.indexOf("<span") != -1){
-            this.description = this.description.replaceAll(this.description.slice(this.description.indexOf("<span"),this.description.indexOf(">", this.description.indexOf("<span"))+1), "")
+        while (this.description.indexOf("<span") != -1){
+            let n = this.description.indexOf("<span")
+            this.description = this.description.replaceAll(this.description.slice(n,this.description.indexOf(">", n)+1), "")
         }
-        if (this.description.indexOf("<table") != -1){
-            this.description = this.description.replaceAll(this.description.slice(this.description.indexOf("<table"),this.description.indexOf(">", this.description.indexOf("<table"))+1), "")
+        while (this.description.indexOf("<table") != -1){
+            let n = this.description.indexOf("<table")
+            this.description = this.description.replaceAll(this.description.slice(n,this.description.indexOf(">\n", n)+1), "")
+        }
+        while (this.description.indexOf("<td") != -1){
+            let n = this.description.indexOf("<td")
+            this.description = this.description.replaceAll(this.description.slice(n,this.description.indexOf(">", n)+1), " ")
+        }
+        while (this.description.indexOf("<h1") != -1){
+            let n = this.description.indexOf("<h1")
+            this.description = this.description.replaceAll(this.description.slice(n,this.description.indexOf(">", n)+1), "***")
+        }
+        while (this.description.indexOf("<h3") != -1){
+            let n = this.description.indexOf("<h3")
+            this.description = this.description.replaceAll(this.description.slice(n,this.description.indexOf(">", n)+1), " ")
         }
         return this.description
     }
@@ -243,7 +278,6 @@ class AncestryFeature{
     featType = "" /*.system.featType.value, string */,
     level = "" /*.system.level.value */,
     prerequisites = [] /*.system. */,
-    rules = [] /*.system.rules, array */,
     source = "" /*.system.source.value, string */,
     customTraits = "" /*.system.traits.custom, string*/,
     rarityTraits = "" /*.system.traits.rarity, string */,
@@ -255,7 +289,6 @@ class AncestryFeature{
         this.featType = featType
         this.level = level
         this.prerequisites = prerequisites
-        this.rules = rules
         this.source = source
         this.customTraits = customTraits
         this.rarityTraits = rarityTraits
@@ -292,37 +325,52 @@ class AncestryFeature{
         .replaceAll("<em>", "")
         .replaceAll("</em>", "")
         .replaceAll("<hr />", "")
-        .replaceAll("</table>", "")
-        .replaceAll("<thread>", "")
-        .replaceAll("</thread>", "")
-        .replaceAll("<tr>", "")
-        .replaceAll("</tr>", "")
-        .replaceAll("<td>", "")
-        .replaceAll("</td>", "")
-        .replaceAll("<th>", "")
-        .replaceAll("</th>", "")
-        .replaceAll("<thead>", "***")
-        .replaceAll("</thead>", "***")
-        .replaceAll("<tbody>", "")
-        .replaceAll("</tbody>", "")
+        .replaceAll("</table>", " ")
+        .replaceAll("<thread>", " ")
+        .replaceAll("</thread>", " ")
+        .replaceAll("<tr>\n", " ")
+        .replaceAll("</tr>", " ")
+        .replaceAll("<td>", " ")
+        .replaceAll("</td>\n", " ")
+        .replaceAll("<th>", " ")
+        .replaceAll("</th>\n", " ")
+        .replaceAll("<thead>\n", "***")
+        .replaceAll("</thead>\n", "***")
+        .replaceAll("<tbody>\n", " ")
+        .replaceAll("</tbody>\n", " ")
         .replaceAll("<h1>", "***")
         .replaceAll("</h1>", "***")
         .replaceAll("<strong>", "***")
         .replaceAll("</strong>", "***")
         .replaceAll("<h2>", "***")
         .replaceAll("</h2>", "***")
-        .replaceAll("<h3>", "***")
-        .replaceAll("</h3>", "***")
+        .replaceAll("<h3>", "")
+        .replaceAll("</h3>", "")
         .replaceAll("</span>", "")
         
-        if (this.description.indexOf("<h2") != -1){
-            this.description = this.description.replaceAll(this.description.slice(this.description.indexOf("<h2"),this.description.indexOf(">", this.description.indexOf("<h2"))+1), "***")
+        while (this.description.indexOf("<h2") != -1){
+            let n = this.description.indexOf("<h2")
+            this.description = this.description.replaceAll(this.description.slice(n,this.description.indexOf(">", n)+1), "***")
         }
-        if (this.description.indexOf("<span") != -1){
-            this.description = this.description.replaceAll(this.description.slice(this.description.indexOf("<span"),this.description.indexOf(">", this.description.indexOf("<span"))+1), "")
+        while (this.description.indexOf("<span") != -1){
+            let n = this.description.indexOf("<span")
+            this.description = this.description.replaceAll(this.description.slice(n,this.description.indexOf(">", n)+1), "")
         }
-        if (this.description.indexOf("<table") != -1){
-            this.description = this.description.replaceAll(this.description.slice(this.description.indexOf("<table"),this.description.indexOf(">", this.description.indexOf("<table"))+1), "")
+        while (this.description.indexOf("<table") != -1){
+            let n = this.description.indexOf("<table")
+            this.description = this.description.replaceAll(this.description.slice(n,this.description.indexOf(">\n", n)+1), "")
+        }
+        while (this.description.indexOf("<td") != -1){
+            let n = this.description.indexOf("<td")
+            this.description = this.description.replaceAll(this.description.slice(n,this.description.indexOf(">", n)+1), " ")
+        }
+        while (this.description.indexOf("<h1") != -1){
+            let n = this.description.indexOf("<h1")
+            this.description = this.description.replaceAll(this.description.slice(n,this.description.indexOf(">", n)+1), "***")
+        }
+        while (this.description.indexOf("<h3") != -1){
+            let n = this.description.indexOf("<h3")
+            this.description = this.description.replaceAll(this.description.slice(n,this.description.indexOf(">", n)+1), " ")
         }
         return this.description
     }
@@ -343,12 +391,6 @@ class AncestryFeature{
     }
     getPrerequisites(){
         return this.prerequisites
-    }
-    setRules(rules){
-        this.rules = rules
-    }
-    getRules(){
-        return this.rules
     }
     setSource(source){
         this.source = source
@@ -383,7 +425,6 @@ class AncestryFeature{
         if (this.getFeatType() != "") message += "***Feat Type:*** " + this.getFeatType() + "\n"
         if (this.getLevel() != "") message += "***Level:*** " + this.getLevel() + "\n"
         if (this.getPrerequisites() != "") message += "***Prerequisites:*** " + this.getPrerequisites() + "\n"
-        if (this.getRules().join() != "") message += "***Rules:*** " + this.getRules().join(", ") + "\n"
         if (this.getSource() != "") message += "***Source:*** " + this.getSource() + "\n"
         if (this.getCustomTraits() != "") message += "***Custom Traits:*** " + this.getCustomTraits() + "\n"
         if (this.getRarityTraits() != "") message += "***Rarity:*** " + this.getRarityTraits() + "\n"
@@ -411,37 +452,52 @@ class Archetype{
         .replaceAll("<em>", "")
         .replaceAll("</em>", "")
         .replaceAll("<hr />", "")
-        .replaceAll("</table>", "")
-        .replaceAll("<thread>", "")
-        .replaceAll("</thread>", "")
-        .replaceAll("<tr>", "")
-        .replaceAll("</tr>", "")
-        .replaceAll("<td>", "")
-        .replaceAll("</td>", "")
-        .replaceAll("<th>", "")
-        .replaceAll("</th>", "")
-        .replaceAll("<thead>", "***")
-        .replaceAll("</thead>", "***")
-        .replaceAll("<tbody>", "")
-        .replaceAll("</tbody>", "")
+        .replaceAll("</table>", " ")
+        .replaceAll("<thread>", " ")
+        .replaceAll("</thread>", " ")
+        .replaceAll("<tr>\n", " ")
+        .replaceAll("</tr>", " ")
+        .replaceAll("<td>", " ")
+        .replaceAll("</td>\n", " ")
+        .replaceAll("<th>", " ")
+        .replaceAll("</th>\n", " ")
+        .replaceAll("<thead>\n", "***")
+        .replaceAll("</thead>\n", "***")
+        .replaceAll("<tbody>\n", " ")
+        .replaceAll("</tbody>\n", " ")
         .replaceAll("<h1>", "***")
         .replaceAll("</h1>", "***")
         .replaceAll("<strong>", "***")
         .replaceAll("</strong>", "***")
         .replaceAll("<h2>", "***")
         .replaceAll("</h2>", "***")
-        .replaceAll("<h3>", "***")
-        .replaceAll("</h3>", "***")
+        .replaceAll("<h3>", "")
+        .replaceAll("</h3>", "")
         .replaceAll("</span>", "")
         
-        if (this.content.indexOf("<h2") != -1){
-            this.content = this.content.replaceAll(this.content.slice(this.content.indexOf("<h2"),this.content.indexOf(">", this.content.indexOf("<h2"))+1), "***")
+        while (this.content.indexOf("<h2") != -1){
+            let n = this.content.indexOf("<h2")
+            this.content = this.content.replaceAll(this.content.slice(n,this.content.indexOf(">", n)+1), "***")
         }
-        if (this.content.indexOf("<span") != -1){
-            this.content = this.content.replaceAll(this.content.slice(this.content.indexOf("<span"),this.content.indexOf(">", this.content.indexOf("<span"))+1), "")
+        while (this.content.indexOf("<span") != -1){
+            let n = this.content.indexOf("<span")
+            this.content = this.content.replaceAll(this.content.slice(n,this.content.indexOf(">", n)+1), "")
         }
-        if (this.content.indexOf("<table") != -1){
-            this.content = this.content.replaceAll(this.content.slice(this.content.indexOf("<table"),this.content.indexOf(">", this.content.indexOf("<table"))+1), "")
+        while (this.content.indexOf("<table") != -1){
+            let n = this.content.indexOf("<table")
+            this.content = this.content.replaceAll(this.content.slice(n,this.content.indexOf(">\n", n)+1), "")
+        }
+        while (this.content.indexOf("<td") != -1){
+            let n = this.content.indexOf("<td")
+            this.content = this.content.replaceAll(this.content.slice(n,this.content.indexOf(">", n)+1), " ")
+        }
+        while (this.content.indexOf("<h1") != -1){
+            let n = this.content.indexOf("<h1")
+            this.content = this.content.replaceAll(this.content.slice(n,this.content.indexOf(">", n)+1), "***")
+        }
+        while (this.content.indexOf("<h3") != -1){
+            let n = this.content.indexOf("<h3")
+            this.content = this.content.replaceAll(this.content.slice(n,this.content.indexOf(">", n)+1), " ")
         }
         return this.content
     }
@@ -487,37 +543,52 @@ class Background{
         .replaceAll("<em>", "")
         .replaceAll("</em>", "")
         .replaceAll("<hr />", "")
-        .replaceAll("</table>", "")
-        .replaceAll("<thread>", "")
-        .replaceAll("</thread>", "")
-        .replaceAll("<tr>", "")
-        .replaceAll("</tr>", "")
-        .replaceAll("<td>", "")
-        .replaceAll("</td>", "")
-        .replaceAll("<th>", "")
-        .replaceAll("</th>", "")
-        .replaceAll("<thead>", "***")
-        .replaceAll("</thead>", "***")
-        .replaceAll("<tbody>", "")
-        .replaceAll("</tbody>", "")
+        .replaceAll("</table>", " ")
+        .replaceAll("<thread>", " ")
+        .replaceAll("</thread>", " ")
+        .replaceAll("<tr>\n", " ")
+        .replaceAll("</tr>", " ")
+        .replaceAll("<td>", " ")
+        .replaceAll("</td>\n", " ")
+        .replaceAll("<th>", " ")
+        .replaceAll("</th>\n", " ")
+        .replaceAll("<thead>\n", "***")
+        .replaceAll("</thead>\n", "***")
+        .replaceAll("<tbody>\n", " ")
+        .replaceAll("</tbody>\n", " ")
         .replaceAll("<h1>", "***")
         .replaceAll("</h1>", "***")
         .replaceAll("<strong>", "***")
         .replaceAll("</strong>", "***")
         .replaceAll("<h2>", "***")
         .replaceAll("</h2>", "***")
-        .replaceAll("<h3>", "***")
-        .replaceAll("</h3>", "***")
+        .replaceAll("<h3>", "")
+        .replaceAll("</h3>", "")
         .replaceAll("</span>", "")
         
-        if (this.description.indexOf("<h2") != -1){
-            this.description = this.description.replaceAll(this.description.slice(this.description.indexOf("<h2"),this.description.indexOf(">", this.description.indexOf("<h2"))+1), "***")
+        while (this.description.indexOf("<h2") != -1){
+            let n = this.description.indexOf("<h2")
+            this.description = this.description.replaceAll(this.description.slice(n,this.description.indexOf(">", n)+1), "***")
         }
-        if (this.description.indexOf("<span") != -1){
-            this.description = this.description.replaceAll(this.description.slice(this.description.indexOf("<span"),this.description.indexOf(">", this.description.indexOf("<span"))+1), "")
+        while (this.description.indexOf("<span") != -1){
+            let n = this.description.indexOf("<span")
+            this.description = this.description.replaceAll(this.description.slice(n,this.description.indexOf(">", n)+1), "")
         }
-        if (this.description.indexOf("<table") != -1){
-            this.description = this.description.replaceAll(this.description.slice(this.description.indexOf("<table"),this.description.indexOf(">", this.description.indexOf("<table"))+1), "")
+        while (this.description.indexOf("<table") != -1){
+            let n = this.description.indexOf("<table")
+            this.description = this.description.replaceAll(this.description.slice(n,this.description.indexOf(">\n", n)+1), "")
+        }
+        while (this.description.indexOf("<td") != -1){
+            let n = this.description.indexOf("<td")
+            this.description = this.description.replaceAll(this.description.slice(n,this.description.indexOf(">", n)+1), " ")
+        }
+        while (this.description.indexOf("<h1") != -1){
+            let n = this.description.indexOf("<h1")
+            this.description = this.description.replaceAll(this.description.slice(n,this.description.indexOf(">", n)+1), "***")
+        }
+        while (this.description.indexOf("<h3") != -1){
+            let n = this.description.indexOf("<h3")
+            this.description = this.description.replaceAll(this.description.slice(n,this.description.indexOf(">", n)+1), " ")
         }
         return this.description
     }
@@ -597,7 +668,7 @@ class Class{
         .replaceAll("<td>", " ")
         .replaceAll("</td>\n", " ")
         .replaceAll("<th>", " ")
-        .replaceAll("</th>", " ")
+        .replaceAll("</th>\n", " ")
         .replaceAll("<thead>\n", "***")
         .replaceAll("</thead>\n", "***")
         .replaceAll("<tbody>\n", " ")
@@ -608,21 +679,33 @@ class Class{
         .replaceAll("</strong>", "***")
         .replaceAll("<h2>", "***")
         .replaceAll("</h2>", "***")
-        .replaceAll("<h3>", "***")
-        .replaceAll("</h3>", "***")
+        .replaceAll("<h3>", "")
+        .replaceAll("</h3>", "")
         .replaceAll("</span>", "")
         
-        if (this.description.indexOf("<h2") != -1){
-            this.description = this.description.replaceAll(this.description.slice(this.description.indexOf("<h2"),this.description.indexOf(">", this.description.indexOf("<h2"))+1), "***")
+        while (this.description.indexOf("<h2") != -1){
+            let n = this.description.indexOf("<h2")
+            this.description = this.description.replaceAll(this.description.slice(n,this.description.indexOf(">", n)+1), "***")
         }
-        if (this.description.indexOf("<span") != -1){
-            this.description = this.description.replaceAll(this.description.slice(this.description.indexOf("<span"),this.description.indexOf(">", this.description.indexOf("<span"))+1), "")
+        while (this.description.indexOf("<span") != -1){
+            let n = this.description.indexOf("<span")
+            this.description = this.description.replaceAll(this.description.slice(n,this.description.indexOf(">", n)+1), "")
         }
-        if (this.description.indexOf("<table") != -1){
-            this.description = this.description.replaceAll(this.description.slice(this.description.indexOf("<table"),this.description.indexOf(">\n", this.description.indexOf("<table"))+1), "")
+        while (this.description.indexOf("<table") != -1){
+            let n = this.description.indexOf("<table")
+            this.description = this.description.replaceAll(this.description.slice(n,this.description.indexOf(">\n", n)+1), "")
         }
-        if (this.description.indexOf("<td") != -1){
-            this.description = this.description.replaceAll(this.description.slice(this.description.indexOf("<td"),this.description.indexOf(">",this.description.includes("<td"))+1), " ")
+        while (this.description.indexOf("<td") != -1){
+            let n = this.description.indexOf("<td")
+            this.description = this.description.replaceAll(this.description.slice(n,this.description.indexOf(">", n)+1), " ")
+        }
+        while (this.description.indexOf("<h1") != -1){
+            let n = this.description.indexOf("<h1")
+            this.description = this.description.replaceAll(this.description.slice(n,this.description.indexOf(">", n)+1), "***")
+        }
+        while (this.description.indexOf("<h3") != -1){
+            let n = this.description.indexOf("<h3")
+            this.description = this.description.replaceAll(this.description.slice(n,this.description.indexOf(">", n)+1), " ")
         }
         return this.description
     }
@@ -641,7 +724,6 @@ class ClassFeature{
     featType = "" /*.system.featType.value, string */,
     level = "" /*.system.level.value */,
     prerequisites = [] /*.system. */,
-    rules = [] /*.system.rules, array */,
     source = "" /*.system.source.value, string */,
     customTraits = "" /*.system.traits.custom, string*/,
     rarityTraits = "" /*.system.traits.rarity, string */,
@@ -653,7 +735,6 @@ class ClassFeature{
         this.featType = featType
         this.level = level
         this.prerequisites = prerequisites
-        this.rules = rules
         this.source = source
         this.customTraits = customTraits
         this.rarityTraits = rarityTraits
@@ -690,37 +771,52 @@ class ClassFeature{
         .replaceAll("<em>", "")
         .replaceAll("</em>", "")
         .replaceAll("<hr />", "")
-        .replaceAll("</table>", "")
-        .replaceAll("<thread>", "")
-        .replaceAll("</thread>", "")
-        .replaceAll("<tr>", "")
-        .replaceAll("</tr>", "")
-        .replaceAll("<td>", "")
-        .replaceAll("</td>", "")
-        .replaceAll("<th>", "")
-        .replaceAll("</th>", "")
-        .replaceAll("<thead>", "***")
-        .replaceAll("</thead>", "***")
-        .replaceAll("<tbody>", "")
-        .replaceAll("</tbody>", "")
+        .replaceAll("</table>", " ")
+        .replaceAll("<thread>", " ")
+        .replaceAll("</thread>", " ")
+        .replaceAll("<tr>\n", " ")
+        .replaceAll("</tr>", " ")
+        .replaceAll("<td>", " ")
+        .replaceAll("</td>\n", " ")
+        .replaceAll("<th>", " ")
+        .replaceAll("</th>\n", " ")
+        .replaceAll("<thead>\n", "***")
+        .replaceAll("</thead>\n", "***")
+        .replaceAll("<tbody>\n", " ")
+        .replaceAll("</tbody>\n", " ")
         .replaceAll("<h1>", "***")
         .replaceAll("</h1>", "***")
         .replaceAll("<strong>", "***")
         .replaceAll("</strong>", "***")
         .replaceAll("<h2>", "***")
         .replaceAll("</h2>", "***")
-        .replaceAll("<h3>", "***")
-        .replaceAll("</h3>", "***")
+        .replaceAll("<h3>", "")
+        .replaceAll("</h3>", "")
         .replaceAll("</span>", "")
         
-        if (this.description.indexOf("<h2") != -1){
-            this.description = this.description.replaceAll(this.description.slice(this.description.indexOf("<h2"),this.description.indexOf(">", this.description.indexOf("<h2"))+1), "***")
+        while (this.description.indexOf("<h2") != -1){
+            let n = this.description.indexOf("<h2")
+            this.description = this.description.replaceAll(this.description.slice(n,this.description.indexOf(">", n)+1), "***")
         }
-        if (this.description.indexOf("<span") != -1){
-            this.description = this.description.replaceAll(this.description.slice(this.description.indexOf("<span"),this.description.indexOf(">", this.description.indexOf("<span"))+1), "")
+        while (this.description.indexOf("<span") != -1){
+            let n = this.description.indexOf("<span")
+            this.description = this.description.replaceAll(this.description.slice(n,this.description.indexOf(">", n)+1), "")
         }
-        if (this.description.indexOf("<table") != -1){
-            this.description = this.description.replaceAll(this.description.slice(this.description.indexOf("<table"),this.description.indexOf(">", this.description.indexOf("<table"))+1), "")
+        while (this.description.indexOf("<table") != -1){
+            let n = this.description.indexOf("<table")
+            this.description = this.description.replaceAll(this.description.slice(n,this.description.indexOf(">\n", n)+1), "")
+        }
+        while (this.description.indexOf("<td") != -1){
+            let n = this.description.indexOf("<td")
+            this.description = this.description.replaceAll(this.description.slice(n,this.description.indexOf(">", n)+1), " ")
+        }
+        while (this.description.indexOf("<h1") != -1){
+            let n = this.description.indexOf("<h1")
+            this.description = this.description.replaceAll(this.description.slice(n,this.description.indexOf(">", n)+1), "***")
+        }
+        while (this.description.indexOf("<h3") != -1){
+            let n = this.description.indexOf("<h3")
+            this.description = this.description.replaceAll(this.description.slice(n,this.description.indexOf(">", n)+1), " ")
         }
         return this.description
     }
@@ -741,12 +837,6 @@ class ClassFeature{
     }
     getPrerequisites(){
         return this.prerequisites
-    }
-    setRules(rules){
-        this.rules = rules
-    }
-    getRules(){
-        return this.rules
     }
     setSource(source){
         this.source = source
@@ -781,7 +871,6 @@ class ClassFeature{
         if (this.getFeatType() != "") message += "***Feat Type:*** " + this.getFeatType() + "\n"
         if (this.getLevel() != "") message += "***Level:*** " + this.getLevel() + "\n"
         if (this.getPrerequisites() != "") message += "***Prerequisites:*** " + this.getPrerequisites() + "\n"
-        if (this.getRules().join() != "") message += "***Rules:*** " + this.getRules().join(", ") + "\n"
         if (this.getSource() != "") message += "***Source:*** " + this.getSource() + "\n"
         if (this.getCustomTraits() != "") message += "***Custom Traits:*** " + this.getCustomTraits() + "\n"
         if (this.getRarityTraits() != "") message += "***Rarity:*** " + this.getRarityTraits() + "\n"
@@ -841,37 +930,52 @@ class Deity{
         .replaceAll("<em>", "")
         .replaceAll("</em>", "")
         .replaceAll("<hr />", "")
-        .replaceAll("</table>", "")
-        .replaceAll("<thread>", "")
-        .replaceAll("</thread>", "")
-        .replaceAll("<tr>", "")
-        .replaceAll("</tr>", "")
-        .replaceAll("<td>", "")
-        .replaceAll("</td>", "")
-        .replaceAll("<th>", "")
-        .replaceAll("</th>", "")
-        .replaceAll("<thead>", "***")
-        .replaceAll("</thead>", "***")
-        .replaceAll("<tbody>", "")
-        .replaceAll("</tbody>", "")
+        .replaceAll("</table>", " ")
+        .replaceAll("<thread>", " ")
+        .replaceAll("</thread>", " ")
+        .replaceAll("<tr>\n", " ")
+        .replaceAll("</tr>", " ")
+        .replaceAll("<td>", " ")
+        .replaceAll("</td>\n", " ")
+        .replaceAll("<th>", " ")
+        .replaceAll("</th>\n", " ")
+        .replaceAll("<thead>\n", "***")
+        .replaceAll("</thead>\n", "***")
+        .replaceAll("<tbody>\n", " ")
+        .replaceAll("</tbody>\n", " ")
         .replaceAll("<h1>", "***")
         .replaceAll("</h1>", "***")
         .replaceAll("<strong>", "***")
         .replaceAll("</strong>", "***")
         .replaceAll("<h2>", "***")
         .replaceAll("</h2>", "***")
-        .replaceAll("<h3>", "***")
-        .replaceAll("</h3>", "***")
+        .replaceAll("<h3>", "")
+        .replaceAll("</h3>", "")
         .replaceAll("</span>", "")
         
-        if (this.description.indexOf("<h2") != -1){
-            this.description = this.description.replaceAll(this.description.slice(this.description.indexOf("<h2"),this.description.indexOf(">", this.description.indexOf("<h2"))+1), "***")
+        while (this.description.indexOf("<h2") != -1){
+            let n = this.description.indexOf("<h2")
+            this.description = this.description.replaceAll(this.description.slice(n,this.description.indexOf(">", n)+1), "***")
         }
-        if (this.description.indexOf("<span") != -1){
-            this.description = this.description.replaceAll(this.description.slice(this.description.indexOf("<span"),this.description.indexOf(">", this.description.indexOf("<span"))+1), "")
+        while (this.description.indexOf("<span") != -1){
+            let n = this.description.indexOf("<span")
+            this.description = this.description.replaceAll(this.description.slice(n,this.description.indexOf(">", n)+1), "")
         }
-        if (this.description.indexOf("<table") != -1){
-            this.description = this.description.replaceAll(this.description.slice(this.description.indexOf("<table"),this.description.indexOf(">", this.description.indexOf("<table"))+1), "")
+        while (this.description.indexOf("<table") != -1){
+            let n = this.description.indexOf("<table")
+            this.description = this.description.replaceAll(this.description.slice(n,this.description.indexOf(">\n", n)+1), "")
+        }
+        while (this.description.indexOf("<td") != -1){
+            let n = this.description.indexOf("<td")
+            this.description = this.description.replaceAll(this.description.slice(n,this.description.indexOf(">", n)+1), " ")
+        }
+        while (this.description.indexOf("<h1") != -1){
+            let n = this.description.indexOf("<h1")
+            this.description = this.description.replaceAll(this.description.slice(n,this.description.indexOf(">", n)+1), "***")
+        }
+        while (this.description.indexOf("<h3") != -1){
+            let n = this.description.indexOf("<h3")
+            this.description = this.description.replaceAll(this.description.slice(n,this.description.indexOf(">", n)+1), " ")
         }
         return this.description
     }
@@ -915,5 +1019,348 @@ class Deity{
         return message
     }
 }
+class Equipment{
+    constructor(name = "" /*.name, string */,
+    description = "" /*.system.description.value, string */,
+    equippedBulk = "" /*.system.equippedBulk.value, string */,
+    level = "" /*.system.level.value, string */,
+    price /*.system.price.value, object */,
+    quantity = "" /*.system.quantity, string */,
+    source = "" /*.system.source.value */,
+    customTraits = "" /*.system.traits.custom, string*/,
+    rarityTraits = "" /*.system.traits.rarity, string */,
+    traits = [] /*.system.traits.value, array */,
+    usage = "" /*.system.usage.value,string */,
+    weight = "" /*.system.weight.value, string */
+    ){
+        this.name = name
+        this.description = description
+        this.equippedBulk = equippedBulk
+        this.level = level
+        this.price = price
+        this.quantity = quantity
+        this.source = source
+        this.customTraits = customTraits
+        this.rarityTraits = rarityTraits
+        this.traits = traits
+        this.usage = usage
+        this.weight = weight
+    }
+    setName(name){
+        this.name = name
+    }
+    getName(){
+        return this.name
+    }
+    setDescription(description){
+        this.description = description
+    }
+    getDescription(){
+        this.description = this.description.replaceAll("<p>","")
+        .replaceAll("</p>", "")
+        .replaceAll("<li>", "")
+        .replaceAll("</li>", "")
+        .replaceAll("<ul>", "")
+        .replaceAll("</ul>", "")
+        .replaceAll("<em>", "")
+        .replaceAll("</em>", "")
+        .replaceAll("<hr />", "")
+        .replaceAll("</table>", " ")
+        .replaceAll("<thread>", " ")
+        .replaceAll("</thread>", " ")
+        .replaceAll("<tr>\n", " ")
+        .replaceAll("</tr>", " ")
+        .replaceAll("<td>", " ")
+        .replaceAll("</td>\n", " ")
+        .replaceAll("<th>", " ")
+        .replaceAll("</th>\n", " ")
+        .replaceAll("<thead>\n", "***")
+        .replaceAll("</thead>\n", "***")
+        .replaceAll("<tbody>\n", " ")
+        .replaceAll("</tbody>\n", " ")
+        .replaceAll("<h1>", "***")
+        .replaceAll("</h1>", "***")
+        .replaceAll("<strong>", "***")
+        .replaceAll("</strong>", "***")
+        .replaceAll("<h2>", "***")
+        .replaceAll("</h2>", "***")
+        .replaceAll("<h3>", "")
+        .replaceAll("</h3>", "")
+        .replaceAll("</span>", "")
+        
+        while (this.description.indexOf("<h2") != -1){
+            let n = this.description.indexOf("<h2")
+            this.description = this.description.replaceAll(this.description.slice(n,this.description.indexOf(">", n)+1), "***")
+        }
+        while (this.description.indexOf("<span") != -1){
+            let n = this.description.indexOf("<span")
+            this.description = this.description.replaceAll(this.description.slice(n,this.description.indexOf(">", n)+1), "")
+        }
+        while (this.description.indexOf("<table") != -1){
+            let n = this.description.indexOf("<table")
+            this.description = this.description.replaceAll(this.description.slice(n,this.description.indexOf(">\n", n)+1), "")
+        }
+        while (this.description.indexOf("<td") != -1){
+            let n = this.description.indexOf("<td")
+            this.description = this.description.replaceAll(this.description.slice(n,this.description.indexOf(">", n)+1), " ")
+        }
+        while (this.description.indexOf("<h1") != -1){
+            let n = this.description.indexOf("<h1")
+            this.description = this.description.replaceAll(this.description.slice(n,this.description.indexOf(">", n)+1), "***")
+        }
+        while (this.description.indexOf("<h3") != -1){
+            let n = this.description.indexOf("<h3")
+            this.description = this.description.replaceAll(this.description.slice(n,this.description.indexOf(">", n)+1), " ")
+        }
+        return this.description
+    }
+    setEquippedBulk(equippedBulk){
+        this.equippedBulk = equippedBulk
+    }
+    getEquippedBulk(){
+        return this.equippedBulk
+    }
+    setLevel(level){
+        this.level = level
+    }
+    getLevel(){
+        return this.level
+    }
+    setPrice(price){
+        this.price = price
+    }
+    getPrice(){
+        return this.price
+    }
+    setQuantity(quantity){
+        this.quantity = quantity
+    }
+    getQuantity(){
+        return this.quantity
+    }
+    setSource(source){
+        this.source = source
+    }
+    getSource(){
+        return this.source
+    }
+    setCustomTraits(customTraits){
+        this.customTraits = customTraits
+    }
+    getCustomTraits(){
+        return this.customTraits
+    }
+    setRarityTraits(rarityTraits){
+        this.rarityTraits = rarityTraits
+    }
+    getRarityTraits(){
+        return this.rarityTraits
+    }
+    setTraits(traits){
+        this.traits = traits
+    }
+    getTraits(){
+        return this.traits
+    }
+    setUsage(usage){
+        this.usage = usage
+    }
+    getUsage(){
+        return this.usage
+    }
+    setWeight(weight){
+        this.weight = weight
+    }
+    getWeight(){
+        return this.weight
+    }
+    toString(){
+        let message = ""
+        if (this.getName() != "") message += "***Name:*** " + this.getName() + "\n"
+        if (this.getDescription() != "") message += "***Description:*** " + this.getDescription() + "\n"
+        if (this.getEquippedBulk() != "") message += "***Equipped Bulk:*** " + this.getEquippedBulk() + "\n"
+        if (this.getLevel() != "") message += "***Level:*** " + this.getLevel() + "\n"
+        if (Object.entries(this.getPrice()) != "") message += "***Price:*** " + Object.entries(this.getPrice()) + "\n"
+        if (this.getQuantity() != "") message += "***Quantity:*** " + this.getQuantity() + "\n"
+        if (this.getSource() != "") message += "***Source:*** " + this.getSource() + "\n"
+        if (this.getCustomTraits() != "") message += "***Custom Traits:*** " + this.getCustomTraits() + "\n"
+        if (this.getRarityTraits() != "") message += "***Rarity:*** " + this.getRarityTraits() + "\n"
+        if (this.getTraits().join() != "") message += "***Traits:*** " + this.getTraits().join(", ") + "\n"
+        if (this.getUsage() != "") message += "***Usage:*** " + this.getUsage() + "\n"
+        if (this.getWeight() != "") message += "***Weight:*** " + this.getWeight() + "\n"
 
-module.exports = { Action, Ancestry, AncestryFeature, Archetype, Background, Class, ClassFeature, Deity }
+        message = message.slice(0, message.length - 1)
+
+        return message
+    }
+}
+class Feat{
+    constructor(name = "" /*.name, string */, 
+    actionType = "" /*.system.actionType.value, string */, 
+    actions = "" /*.system.actions.value, number/string */, 
+    description = "" /*.system.description.value, string */,
+    featType = "" /*.system.featType.value, string */,
+    level = "" /*.system.level.value */,
+    prerequisites = [] /*.system. */,
+    source = "" /*.system.source.value, string */,
+    customTraits = "" /*.system.traits.custom, string*/,
+    rarityTraits = "" /*.system.traits.rarity, string */,
+    traits = [] /*.system.traits.value, array */){
+        this.name = name
+        this.actionType = actionType
+        this.actions = actions
+        this.description = description
+        this.featType = featType
+        this.level = level
+        this.prerequisites = prerequisites
+        this.source = source
+        this.customTraits = customTraits
+        this.rarityTraits = rarityTraits
+        this.traits = traits
+    }
+    setName(name){
+        this.name = name
+    }
+    getName(){
+        return this.name
+    }
+    setActionType(actionType){
+        this.actionType = actionType
+    }
+    getActionType(){
+        return this.actionType
+    }
+    setActions(actions){
+        this.actions = actions
+    }
+    getActions(){
+        return this.actions
+    }
+    setDescription(description){
+        this.description = description
+    }
+    getDescription(){
+        this.description = this.description.replaceAll("<p>","")
+        .replaceAll("</p>", "")
+        .replaceAll("<li>", "")
+        .replaceAll("</li>", "")
+        .replaceAll("<ul>", "")
+        .replaceAll("</ul>", "")
+        .replaceAll("<em>", "")
+        .replaceAll("</em>", "")
+        .replaceAll("<hr />", "")
+        .replaceAll("</table>", " ")
+        .replaceAll("<thread>", " ")
+        .replaceAll("</thread>", " ")
+        .replaceAll("<tr>\n", " ")
+        .replaceAll("</tr>", " ")
+        .replaceAll("<td>", " ")
+        .replaceAll("</td>\n", " ")
+        .replaceAll("<th>", " ")
+        .replaceAll("</th>\n", " ")
+        .replaceAll("<thead>\n", "***")
+        .replaceAll("</thead>\n", "***")
+        .replaceAll("<tbody>\n", " ")
+        .replaceAll("</tbody>\n", " ")
+        .replaceAll("<h1>", "***")
+        .replaceAll("</h1>", "***")
+        .replaceAll("<strong>", "***")
+        .replaceAll("</strong>", "***")
+        .replaceAll("<h2>", "***")
+        .replaceAll("</h2>", "***")
+        .replaceAll("<h3>", "")
+        .replaceAll("</h3>", "")
+        .replaceAll("</span>", "")
+        
+        while (this.description.indexOf("<h2") != -1){
+            let n = this.description.indexOf("<h2")
+            this.description = this.description.replaceAll(this.description.slice(n,this.description.indexOf(">", n)+1), "***")
+        }
+        while (this.description.indexOf("<span") != -1){
+            let n = this.description.indexOf("<span")
+            this.description = this.description.replaceAll(this.description.slice(n,this.description.indexOf(">", n)+1), "")
+        }
+        while (this.description.indexOf("<table") != -1){
+            let n = this.description.indexOf("<table")
+            this.description = this.description.replaceAll(this.description.slice(n,this.description.indexOf(">\n", n)+1), "")
+        }
+        while (this.description.indexOf("<td") != -1){
+            let n = this.description.indexOf("<td")
+            this.description = this.description.replaceAll(this.description.slice(n,this.description.indexOf(">", n)+1), " ")
+        }
+        while (this.description.indexOf("<h1") != -1){
+            let n = this.description.indexOf("<h1")
+            this.description = this.description.replaceAll(this.description.slice(n,this.description.indexOf(">", n)+1), "***")
+        }
+        while (this.description.indexOf("<h3") != -1){
+            let n = this.description.indexOf("<h3")
+            this.description = this.description.replaceAll(this.description.slice(n,this.description.indexOf(">", n)+1), " ")
+        }
+        return this.description
+    }
+    setFeatType(featType){
+        this.featType = featType
+    }
+    getFeatType(){
+        return this.featType
+    }
+    setLevel(level){
+        this.level = level
+    }
+    getLevel(){
+        return this.level
+    }
+    setPrerequisites(prerequisites){
+        this.prerequisites = prerequisites
+    }
+    getPrerequisites(){
+        return this.prerequisites
+    }
+    setSource(source){
+        this.source = source
+    }
+    getSource(){
+        return this.source
+    }
+    setCustomTraits(customTraits){
+        this.customTraits = customTraits
+    }
+    getCustomTraits(){
+        return this.customTraits
+    }
+    setRarityTraits(rarityTraits){
+        this.rarityTraits = rarityTraits
+    }
+    getRarityTraits(){
+        return this.rarityTraits
+    }
+    setTraits(traits){
+        this.traits = traits
+    }
+    getTraits(){
+        return this.traits
+    }
+    toString(){
+        let message = ""
+        if (this.getName() != "") message += "***Name:*** " + this.getName() + "\n"
+        if (this.getActionType() != "") message += "***Action Type:*** " + this.getActionType() + "\n"
+        if (this.getActions() != "") message += "***Actions:*** " + this.getActions() +"\n"
+        if (this.getDescription() != "") message += "***Description:*** " + this.getDescription() + "\n"
+        if (this.getFeatType() != "") message += "***Feat Type:*** " + this.getFeatType() + "\n"
+        if (this.getLevel() != "") message += "***Level:*** " + this.getLevel() + "\n"
+        if (this.getPrerequisites() != "") message += "***Prerequisites:*** " + this.getPrerequisites() + "\n"
+        if (this.getSource() != "") message += "***Source:*** " + this.getSource() + "\n"
+        if (this.getCustomTraits() != "") message += "***Custom Traits:*** " + this.getCustomTraits() + "\n"
+        if (this.getRarityTraits() != "") message += "***Rarity:*** " + this.getRarityTraits() + "\n"
+        if (this.getTraits().join() != "") message += "***Traits:*** " + this.getTraits().join(", ") + "\n"
+        
+        message = message.slice(0, message.length - 1)
+
+        return message
+    }
+}
+class Spell{
+
+}
+
+module.exports = { Action, Ancestry, AncestryFeature, Archetype, Background, Class, ClassFeature, Deity, Equipment, Feat }
