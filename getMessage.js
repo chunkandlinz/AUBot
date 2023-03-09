@@ -2,7 +2,7 @@
 const { pathfinderId } = require("./config.json")
 const url = `https://api.pathfinder2.fr/v1/pf2`;
 const maxLength = 2000
-const { Action, Ancestry, AncestryFeature, Archetype, Background, Class, ClassFeature, Deity, Equipment, Feat } = require("./getRequest.js")
+const { Action, Ancestry, AncestryFeature, Archetype, Background, Class, ClassFeature, Deity, Equipment, Feat, Spell } = require("./getRequest.js")
 //const { breakObject } = require("./breakObject.js")
 
 //pass message to function to determine if established API command
@@ -75,7 +75,7 @@ const getMessage = (message) => {
               else if (apiRule.length == 0){
                 messageReply = "Sorry, no results, try another character or characters!"
               }
-              else if(content.slice(0, content.indexOf(".")).toLowerCase() == "!!action" && apiRule.length == 1){
+              else if(content.slice(0, content.indexOf(".")).toLowerCase() == "!!action" && (apiRule.length == 1 || apiRule[0].name.toLowerCase() == nameTag)){
                 let action = new Action(apiRule[0].name, 
                   apiRule[0].system.actionCategory.value, 
                   apiRule[0].system.actionType.value,
@@ -98,7 +98,7 @@ const getMessage = (message) => {
 
                   messageReply = ancestry.toString()
               }
-              else if (content.slice(0, content.indexOf(".")).toLowerCase() == "!!ancestryfeature" && apiRule.length == 1){
+              else if (content.slice(0, content.indexOf(".")).toLowerCase() == "!!ancestryfeature" && (apiRule.length == 1 || apiRule[0].name.toLowerCase() == nameTag)){
                 let ancestryFeature = new AncestryFeature(apiRule[0].name,
                   apiRule[0].system.actionType.value,
                   apiRule[0].system.actions.value,
@@ -113,12 +113,12 @@ const getMessage = (message) => {
 
                   messageReply = ancestryFeature.toString()
                 }
-              else if (content.slice(0, content.indexOf(".")).toLowerCase() == "!!archetype" && apiRule.length == 1){
+              else if (content.slice(0, content.indexOf(".")).toLowerCase() == "!!archetype" && (apiRule.length == 1 || apiRule[0].name.toLowerCase() == nameTag)){
                 let archetype = new Archetype(apiRule[0].content)
 
                 messageReply = archetype.toString()
               }
-              else if (content.slice(0, content.indexOf(".")).toLowerCase() == "!!background" && apiRule.length == 1){
+              else if (content.slice(0, content.indexOf(".")).toLowerCase() == "!!background" && (apiRule.length == 1 || apiRule[0].name.toLowerCase() == nameTag)){
                 let background = new Background(apiRule[0].name, 
                   apiRule[0].system.description.value,
                   apiRule[0].system.rules,
@@ -129,13 +129,13 @@ const getMessage = (message) => {
 
                   messageReply = background.toString()
               }
-              else if (content.slice(0, content.indexOf(".")).toLowerCase() == "!!class" && apiRule.length == 1){
+              else if (content.slice(0, content.indexOf(".")).toLowerCase() == "!!class" && (apiRule.length == 1 || apiRule[0].name.toLowerCase() == nameTag)){
                 let gameClass = new Class(apiRule[0].name,
                   apiRule[0].system.description.value)
 
                   messageReply = gameClass.toString()
               }
-              else if (content.slice(0, content.indexOf(".")).toLowerCase() == "!!classfeature" && apiRule.length == 1){
+              else if (content.slice(0, content.indexOf(".")).toLowerCase() == "!!classfeature" && (apiRule.length == 1 || apiRule[0].name.toLowerCase() == nameTag)){
                 let classFeature = new ClassFeature(apiRule[0].name,
                   apiRule[0].system.actionType.value,
                   apiRule[0].system.actions.value,
@@ -150,7 +150,7 @@ const getMessage = (message) => {
 
                   messageReply = classFeature.toString()
                 }
-                else if (content.slice(0, content.indexOf(".")).toLowerCase() == "!!deity" && apiRule.length == 1){
+                else if (content.slice(0, content.indexOf(".")).toLowerCase() == "!!deity" && (apiRule.length == 1 || apiRule[0].name.toLowerCase() == nameTag)){
                   let deity = new Deity(apiRule[0].name,
                     apiRule[0].system.alignment.follower,
                     apiRule[0].system.alignment.own,
@@ -162,7 +162,7 @@ const getMessage = (message) => {
 
                     messageReply = deity.toString()
                 }
-                else if (content.slice(0, content.indexOf(".")).toLowerCase() == "!!equipment" && apiRule.length == 1){
+                else if (content.slice(0, content.indexOf(".")).toLowerCase() == "!!equipment" && (apiRule.length == 1 || apiRule[0].name.toLowerCase() == nameTag)){
                   let equipment = new Equipment(apiRule[0].name,
                     apiRule[0].system.description.value,
                     apiRule[0].system.equippedBulk.value,
@@ -178,7 +178,7 @@ const getMessage = (message) => {
   
                     messageReply = equipment.toString()
                   }
-                  else if (content.slice(0, content.indexOf(".")).toLowerCase() == "!!feat" && apiRule.length == 1){
+                  else if (content.slice(0, content.indexOf(".")).toLowerCase() == "!!feat" && (apiRule.length == 1 || apiRule[0].name.toLowerCase() == nameTag)){
                     let feat = new Feat(apiRule[0].name,
                       apiRule[0].system.actionType.value,
                       apiRule[0].system.actions.value,
@@ -193,6 +193,28 @@ const getMessage = (message) => {
     
                       messageReply = feat.toString()
                     }
+                    else if (content.slice(0, content.indexOf(".")).toLowerCase() == "!!spell" && (apiRule.length == 1 || apiRule[0].name.toLowerCase() == nameTag)){
+                      let spell = new Spell(apiRule[0].name,
+                        apiRule[0].system.components.material,
+                        apiRule[0].system.components.somatic,
+                        apiRule[0].system.components.verbal,
+                        apiRule[0].system.description.value,
+                        apiRule[0].system.duration.value,
+                        apiRule[0].system.level.value,
+                        apiRule[0].system.materials,
+                        apiRule[0].system.range.value,
+                        apiRule[0].system.save,
+                        apiRule[0].system.school.value,
+                        apiRule[0].system.source.value,
+                        apiRule[0].system.sustained.value,
+                        apiRule[0].system.target.value,
+                        apiRule[0].system.time.value,
+                        apiRule[0].system.traditions.value,
+                        apiRule[0].system.traits.rarity,
+                        apiRule[0].system.traits.value)
+      
+                        messageReply = spell.toString()
+                      }
               else {
                 console.log(apiRule[0])
                 //apiRule.flat()
@@ -295,7 +317,7 @@ const getMessage = (message) => {
                 }
               }
         })
-        console.log(apiRule[0])
+        //console.log(apiRule[0])
       } catch (error) {
           console.log(`There was an error: ${error}`)
         }

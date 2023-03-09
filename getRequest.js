@@ -277,7 +277,7 @@ class AncestryFeature{
     description = "" /*.system.description.value, string */,
     featType = "" /*.system.featType.value, string */,
     level = "" /*.system.level.value */,
-    prerequisites = [] /*.system. */,
+    prerequisites = [] /*.system.prerequisites.value, array of objects */,
     source = "" /*.system.source.value, string */,
     customTraits = "" /*.system.traits.custom, string*/,
     rarityTraits = "" /*.system.traits.rarity, string */,
@@ -424,7 +424,15 @@ class AncestryFeature{
         if (this.getDescription() != "") message += "***Description:*** " + this.getDescription() + "\n"
         if (this.getFeatType() != "") message += "***Feat Type:*** " + this.getFeatType() + "\n"
         if (this.getLevel() != "") message += "***Level:*** " + this.getLevel() + "\n"
-        if (this.getPrerequisites() != "") message += "***Prerequisites:*** " + this.getPrerequisites() + "\n"
+        if (this.getPrerequisites().join() != ""){
+            message += "***Prerequisites:*** " 
+            this.getPrerequisites().forEach(value => {
+                for(const [key, entry] of Object.entries(value)){
+                    message += entry
+                }
+            })
+            message += "\n"
+        }
         if (this.getSource() != "") message += "***Source:*** " + this.getSource() + "\n"
         if (this.getCustomTraits() != "") message += "***Custom Traits:*** " + this.getCustomTraits() + "\n"
         if (this.getRarityTraits() != "") message += "***Rarity:*** " + this.getRarityTraits() + "\n"
@@ -510,7 +518,7 @@ class Archetype{
 class Background{
     constructor(name = "" /*.name, string */,
     description = "" /*.system.description.value, string */,
-    rules = [] /*.system.rules, array */,
+    rules /*.system.rules, object */,
     source = "" /*.system.source.value, string */,
     customTraits = "" /*.system.traits.custom, string*/,
     rarityTraits = "" /*.system.traits.rarity, string */,
@@ -626,7 +634,7 @@ class Background{
         let message = ""
         if (this.getName() != "") message += "***Name:*** " + this.getName() + "\n"
         if (this.getDescription() != "") message += "***Description:*** " + this.getDescription() + "\n"
-        if (this.getRules().join() != "") message += "***Rules:*** " + this.getRules().join(", ") + "\n"
+        if (Object.entries(this.getRules()) != "") message += "***Rules:*** " + Object.entries(this.getRules()) + "\n"
         if (this.getSource() != "") message += "***Source:*** " + this.getSource() + "\n"
         if (this.getCustomTraits() != "") message += "***Custom Traits:*** " + this.getCustomTraits() + "\n"
         if (this.getRarityTraits() != "") message += "***Rarity:*** " + this.getRarityTraits() + "\n"
@@ -723,7 +731,7 @@ class ClassFeature{
     description = "" /*.system.description.value, string */,
     featType = "" /*.system.featType.value, string */,
     level = "" /*.system.level.value */,
-    prerequisites = [] /*.system. */,
+    prerequisites = [] /*.system.prerequisites.value, array of objects */,
     source = "" /*.system.source.value, string */,
     customTraits = "" /*.system.traits.custom, string*/,
     rarityTraits = "" /*.system.traits.rarity, string */,
@@ -870,7 +878,15 @@ class ClassFeature{
         if (this.getDescription() != "") message += "***Description:*** " + this.getDescription() + "\n"
         if (this.getFeatType() != "") message += "***Feat Type:*** " + this.getFeatType() + "\n"
         if (this.getLevel() != "") message += "***Level:*** " + this.getLevel() + "\n"
-        if (this.getPrerequisites() != "") message += "***Prerequisites:*** " + this.getPrerequisites() + "\n"
+        if (this.getPrerequisites().join() != ""){
+            message += "***Prerequisites:*** " 
+            this.getPrerequisites().forEach(value => {
+                for(const [key, entry] of Object.entries(value)){
+                    message += entry
+                }
+            })
+            message += "\n"
+        }
         if (this.getSource() != "") message += "***Source:*** " + this.getSource() + "\n"
         if (this.getCustomTraits() != "") message += "***Custom Traits:*** " + this.getCustomTraits() + "\n"
         if (this.getRarityTraits() != "") message += "***Rarity:*** " + this.getRarityTraits() + "\n"
@@ -1201,7 +1217,7 @@ class Feat{
     description = "" /*.system.description.value, string */,
     featType = "" /*.system.featType.value, string */,
     level = "" /*.system.level.value */,
-    prerequisites = [] /*.system. */,
+    prerequisites = [] /*.system.prerequisites.value, array of objects */,
     source = "" /*.system.source.value, string */,
     customTraits = "" /*.system.traits.custom, string*/,
     rarityTraits = "" /*.system.traits.rarity, string */,
@@ -1348,7 +1364,15 @@ class Feat{
         if (this.getDescription() != "") message += "***Description:*** " + this.getDescription() + "\n"
         if (this.getFeatType() != "") message += "***Feat Type:*** " + this.getFeatType() + "\n"
         if (this.getLevel() != "") message += "***Level:*** " + this.getLevel() + "\n"
-        if (this.getPrerequisites() != "") message += "***Prerequisites:*** " + this.getPrerequisites() + "\n"
+        if (this.getPrerequisites().join() != ""){
+            message += "***Prerequisites:*** " 
+            this.getPrerequisites().forEach(value => {
+                for(const [key, entry] of Object.entries(value)){
+                    message += entry
+                }
+            })
+            message += "\n"
+        }
         if (this.getSource() != "") message += "***Source:*** " + this.getSource() + "\n"
         if (this.getCustomTraits() != "") message += "***Custom Traits:*** " + this.getCustomTraits() + "\n"
         if (this.getRarityTraits() != "") message += "***Rarity:*** " + this.getRarityTraits() + "\n"
@@ -1360,7 +1384,231 @@ class Feat{
     }
 }
 class Spell{
+    constructor(name = "" /*.name, string */,
+    material = false /*.system.components.material, boolean */,
+    somatic = false /*.system.components.somatic, boolean */,
+    verbal = false /*.system.components.verbal, boolean */,
+    description = "" /*.system.description.value, string */,
+    duration = "" /*.system.duration.value, string */,
+    level = "" /*.system.level.value, string */,
+    materialComponent = "" /*.system.materials, string */,
+    range = "" /*system.range.value, string */,
+    save /*.system.save, object */,
+    school = "" /*.system.school.value, string */,
+    source = "" /*.system.source.value, string */,
+    sustained = false /*.system.sustained.value, boolean */,
+    target = "" /*.system.target.value, string */,
+    castingTime = "" /*.system.time.value, string */,
+    traditions = [] /*.system.traditions.value, array */,
+    rarityTraits = "" /*.system.traits.rarity, string */,
+    traits = [] /*.system.traits.value, array */){
+        this.name = name
+        this.material = material
+        this.somatic = somatic
+        this.verbal = verbal
+        this.description = description
+        this.duration =duration
+        this.level =level
+        this.materialComponent = materialComponent
+        this.range = range
+        this.save = save
+        this.school = school
+        this.source = source
+        this.sustained = sustained
+        this.target = target
+        this.castingTime = castingTime
+        this. traditions = traditions
+        this.rarityTraits =rarityTraits
+        this.traits = traits
+    }
+    setName(name){
+        this.name = name
+    }
+    getName(){
+        return this.name
+    }
+    setMaterial(material){
+        this.material = material
+    }
+    getMaterial(){
+        return this.material
+    }
+    setSomatic(somatic){
+        this.somatic = somatic
+    }
+    getSomatic(){
+        return this.somatic
+    }
+    setVerbal(verbal){
+        this.verbal = verbal
+    }
+    getVerbal(){
+        return this.verbal
+    }
+    setDescription(description){
+        this.description = description
+    }
+    getDescription(){
+        this.description = this.description.replaceAll("<p>","")
+        .replaceAll("</p>", "")
+        .replaceAll("<li>", "")
+        .replaceAll("</li>", "")
+        .replaceAll("<ul>", "")
+        .replaceAll("</ul>", "")
+        .replaceAll("<em>", "")
+        .replaceAll("</em>", "")
+        .replaceAll("<hr />", "")
+        .replaceAll("</table>", " ")
+        .replaceAll("<thread>", " ")
+        .replaceAll("</thread>", " ")
+        .replaceAll("<tr>\n", " ")
+        .replaceAll("</tr>", " ")
+        .replaceAll("<td>", " ")
+        .replaceAll("</td>\n", " ")
+        .replaceAll("<th>", " ")
+        .replaceAll("</th>\n", " ")
+        .replaceAll("<thead>\n", "***")
+        .replaceAll("</thead>\n", "***")
+        .replaceAll("<tbody>\n", " ")
+        .replaceAll("</tbody>\n", " ")
+        .replaceAll("<h1>", "***")
+        .replaceAll("</h1>", "***")
+        .replaceAll("<strong>", "***")
+        .replaceAll("</strong>", "***")
+        .replaceAll("<h2>", "***")
+        .replaceAll("</h2>", "***")
+        .replaceAll("<h3>", "")
+        .replaceAll("</h3>", "")
+        .replaceAll("</span>", "")
+        
+        while (this.description.indexOf("<h2") != -1){
+            let n = this.description.indexOf("<h2")
+            this.description = this.description.replaceAll(this.description.slice(n,this.description.indexOf(">", n)+1), "***")
+        }
+        while (this.description.indexOf("<span") != -1){
+            let n = this.description.indexOf("<span")
+            this.description = this.description.replaceAll(this.description.slice(n,this.description.indexOf(">", n)+1), "")
+        }
+        while (this.description.indexOf("<table") != -1){
+            let n = this.description.indexOf("<table")
+            this.description = this.description.replaceAll(this.description.slice(n,this.description.indexOf(">\n", n)+1), "")
+        }
+        while (this.description.indexOf("<td") != -1){
+            let n = this.description.indexOf("<td")
+            this.description = this.description.replaceAll(this.description.slice(n,this.description.indexOf(">", n)+1), " ")
+        }
+        while (this.description.indexOf("<h1") != -1){
+            let n = this.description.indexOf("<h1")
+            this.description = this.description.replaceAll(this.description.slice(n,this.description.indexOf(">", n)+1), "***")
+        }
+        while (this.description.indexOf("<h3") != -1){
+            let n = this.description.indexOf("<h3")
+            this.description = this.description.replaceAll(this.description.slice(n,this.description.indexOf(">", n)+1), " ")
+        }
+        return this.description
+    }
+    setDuration(duration){
+        this.duration = duration
+    }
+    getDuration(){
+        return this.duration
+    }
+    setLevel(level){
+        this.level = level
+    }
+    getLevel(){
+        return this.level
+    }
+    setMaterialComponent(materialComponent){
+        this.materialComponent = materialComponent
+    }
+    getMaterialComponent(){
+        return this.materialComponent
+    }
+    setRange(range){
+        this.range = range
+    }
+    getRange(){
+        return this.range
+    }
+    setSave(save){
+        this.save = save
+    }
+    getSave(){
+        return this.save
+    }
+    setSchool(school){
+        this.school = school
+    }
+    getSchool(){
+        return this.school
+    }
+    setSource(source){
+        this.source = source
+    }
+    getSource(){
+        return this.source
+    }
+    setSustained(sustained){
+        this.sustained = sustained
+    }
+    getSustained(){
+        return this.sustained
+    }
+    setTarget(target){
+        this.target = target
+    }
+    getTarget(){
+        return this.target
+    }
+    setCastingTime(castingTime){
+        this.castingTime = castingTime
+    }
+    getCastingTime(){
+        return this.castingTime
+    }
+    setTraditions(traditions){
+        this.traditions = traditions
+    }
+    getTraditions(){
+        return this.traditions
+    }
+    setRarityTraits(rarityTraits){
+        this.rarityTraits = rarityTraits
+    }
+    getRarityTraits(){
+        return this.rarityTraits
+    }
+    setTraits(traits){
+        this.traits = traits
+    }
+    getTraits(){
+        return this.traits
+    } 
+    toString(){
+        let message = ""
+        if (this.getName() != "") message += "***Name:*** " + this.getName() + "\n"
+        if (this.getLevel() != "") message += "***Level:*** " + this.getLevel() + "\n"
+        message += "***Components:*** "
+        if (this.getVerbal() == true) message += "Verbal "
+        if (this.getSomatic() == true) message += "Somatic "
+        if (this.getMaterial() == true) message += "Material (" + this.getMaterialComponent() + ")"
+        message += "\n"
+        if (this.getRange() != "") message += "***Range:*** " + this.getRange() + "\n"
+        if (this.getCastingTime() != "") message += "***Time:*** " + this.getCastingTime() + "\n"
+        if (this.getDuration() != "") message += "***Duration:*** " + this.getDuration() + "\n"        
+        if (this.getSchool() != "") message += "***School:*** " + this.getSchool() + "\n"
+        if (this.getTraditions().join() != "") message += "***Traditions:*** " + this.getTraditions().join(", ") + "\n"
+        if (this.getDescription() != "") message += "***Description:*** " + this.getDescription() + "\n"
+        if (Object.entries(this.getSave()) != "") message += "***Save:*** " + Object.entries(this.getSave()) + "\n"
+        if (this.getSource() != "") message += "***Source:*** " + this.getSource() + "\n"
+        if (this.getRarityTraits() != "") message += "***Rarity:*** " + this.getRarityTraits() + "\n"
+        if (this.getTraits().join() != "") message += "***Traits:*** " + this.getTraits().join(", ") + "\n"
 
+        message = message.slice(0, message.length - 1)
+
+        return message
+    }
 }
 
-module.exports = { Action, Ancestry, AncestryFeature, Archetype, Background, Class, ClassFeature, Deity, Equipment, Feat }
+module.exports = { Action, Ancestry, AncestryFeature, Archetype, Background, Class, ClassFeature, Deity, Equipment, Feat, Spell }
