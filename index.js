@@ -5,6 +5,7 @@ const { token } = require("./config.json")
 const { Client, GatewayIntentBits } = require("discord.js")
 //For cleaner code, established getMessage fuction in separate file
 const { getMessage } = require("./getMessage.js")
+const { pullApi } = require("./pullApi.js")
 
 //establish the client to grab intents
 const client = new Client({
@@ -18,8 +19,9 @@ const client = new Client({
 
 //used to determine that bot is logged on to server
 client.once(`ready`, c =>{
+  pullApi()
   console.log(`Ready! Logged in as ${c.user.tag}`)
-  client.user.setActivity(`"Type "!!help" to get started!"`)
+  client.user.setActivity(`"type !!help to get started."`)
 })
 
 //on messageCreate event, grabs message for use
