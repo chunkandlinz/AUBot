@@ -23,7 +23,6 @@ class Action{
         this.actions = actions
         this.description = description
         this.requirements = requirements
-        this.rules = rules
         this.source = source
         this.customTraits = customTraits
         this.rarityTraits = rarityTraits
