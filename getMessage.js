@@ -12,7 +12,7 @@ const getMessage = (message) => {
 
   try{
     if (content.slice(0, 2) == "!!" && content.indexOf(".") != -1){
-    searchTag = content.slice(content.indexOf(".")+1, content.length)
+    searchTag = content.slice(content.indexOf(".")+1, content.length).toLowerCase()
   }
 
   if (content == `!!help`) {
@@ -280,7 +280,7 @@ const getMessage = (message) => {
       }
       if (apiRule.length > 1) {
         for(i = 0; i<apiRule.length; i++){
-        reply += "~" + apiRule[i].name +"\n"
+        reply += "~" + apiRule[i].system.level.value + " - " + apiRule[i].name +"\n"
       }
     }else if (apiRule.length == 0) {
       reply = "Enter a valid search, such as **!!feat.oracular clarity** or **!!feat.a**. You can also search for feat type (**classfeature, archetype, ancestryfeature, skill**) or by trait (like **skill, oracle, fighter**)"
